@@ -30,7 +30,7 @@
 
     /* active : 클릭 이벤트 */
     ul.submenu>li:hover {
-        color: violet;
+        color: red;
         cursor: pointer;
     }
 </style>
@@ -96,7 +96,7 @@ $(function () {
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" id="searchingcar">
         </form>
 
 <!--         <div class="text-end">

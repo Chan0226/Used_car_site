@@ -25,6 +25,10 @@
 	th{
 		text-align: center;
 	}
+	a:hover{
+		color:red;
+		text-decoration:underline;
+	}
 </style>
 	<%
 		//세션 ID값 가져오기
@@ -52,6 +56,7 @@
 				<tr>
 					<th></th>
 					<th>차량번호</th>
+					<th></th>
 					<th>차량명</th>
 					<th>제조사</th>
 					<th>차량가격</th>
@@ -68,7 +73,12 @@
 					<input type="checkbox" class="alldel" value="<%=dto.getNum()%>">
 				</td>
 				<td align="center"><%=dto.getCarnumber()%></td>
-				<td align="center"><%=dto.getCarname()%></td>
+				<td align="center"><img src=<%=dto.getImage() %> width="60" height="60" class="img-thumbnail"></td>
+				<td align="center">
+				<a href="detailview.jsp?num=<%=dto.getNum()%>" style="color:black;text-decoration:none;" id="link">   <!-- 상품명 클릭시 디테일뷰로 연결 -->
+				<b><%=dto.getCarname() %></b>
+				</a>
+				</td>
 				<td align="center"><%=dto.getCompany()%></td>
 				<td align="center"><%=dto.getCost()%></td>
 				<td align="center"><%=dto.getSort()%></td>
@@ -79,7 +89,7 @@
 			</tr>
 			<%} %>
 			<tr>
-				<td colspan="5">
+				<td colspan="12">
 					<input type="checkbox" class="alldelcheck">&nbsp;전체 선택
 					<span style="float:right">
 						<button type="button" class="btn btn-danger btn-sm"
@@ -110,9 +120,9 @@
 		// 체크된 길이 구하기
 		var len = $(".alldel:checked").length;
 		if(len==0){
-			alert("최소 1개 이상의 글을 선택해주세요")
+			alert("최소 1개 이상의 차량을 선택해주세요")
 		}else{
-			var a = confirm(len+"개의 글을 삭제하려면 [확인을 눌러주세요]")
+			var a = confirm(len+"개의 차량을 장바구니에서 삭제하려면 [확인을 눌러주세요]")
 			
 			if(a){
 			// 체크된 곳의 value값 (num) 얻기

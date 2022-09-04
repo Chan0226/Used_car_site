@@ -151,6 +151,7 @@ $(function(){
 		// this()는 버튼이기 때문에 $(#sangpum)을 사용
 		search($(".search-input").val().trim());
 	});
+	//searched
 	
 	function search(carname){
 		$.ajax({
@@ -188,7 +189,51 @@ $(function(){
 			}
 		});
 	}
-	
+	$("#searched").click(function(){
+		var company=$("#company option:selected").text();
+		var mincost=$("#mincost option:selected").val();
+		var maxcost=$("#maxcost option:selected").val();
+		console.log(company);
+		console.log(mincost);
+		console.log(maxcost);
+		var s = "company="+company+"&mincost="+mincost+"&maxcost="+maxcost;
+
+		// 총점, 평균
+		$.ajax({
+			type:"get",
+			url:"filtering.jsp",
+			dataType:"json",
+			data:s,
+			success:function(res){	
+				var s="<div class='cardbox' style='margin-top:100px'>";
+				
+				$.each(res,function(idx,item){
+					s+="<div class='cards' style='margin-bottom:80px;width:300px; float:left; width:33%; margin:auto;text-align: center;'>";
+					s+="<a href='detailview.jsp?num="+item.num+"'>";
+					s+="<img src='"+item.image+"' style='width:300px; height:300px; border-radius:10px; cursor:pointer'>";
+					s+="</a>";
+					s+="<div class='card-body' style='width:300px;height:300px; margin:auto;text-align: center;'>";
+					s+="<h5 class='card-title'>"+item.carname+"</h5>";
+					s+="<h5 class='card-subtitle mb-2 text-muted'>"+item.cost+"만원</h5>";
+					s+=item.caryear+"·";
+					s+=item.distance+"km ·";
+					s+=item.gas;
+					s+="</div>";
+					s+="</div>";
+				});
+				s+="</div>";
+				$(".result").html(s);
+			},
+			statusCode: {
+				404:function(){
+					alert("json 파일을 찾을수 없어요!");
+				},
+				500:function(){
+					alert("서버 오류..코드를 다시 한번 보세요!");
+				}
+			}
+		});
+	});
 });
 
 </script>
@@ -281,42 +326,42 @@ $(function(){
         </div>
         
         <div class='select' style=" margin: auto; text-align: center;">
-        <select class="form-select" style="width:150px; margin-top:30px;float:left">
+        <select class="form-select" style="width:150px; margin-top:30px;float:left" id="company">
 		  <option value="" disabled selected>제조사 선택</option>
-		  <option value="1">현대</option>
-		  <option value="2">기아</option>
-		  <option value="3">르노삼성</option>
-		  <option value="4">쉐보레</option>
-		  <option value="5">쌍용</option>
-		  <option value="6">제네시스</option>
+		  <option value="현대">현대</option>
+		  <option value="기아">기아</option>
+		  <option value="르노삼성">르노삼성</option>
+		  <option value="쉐보레">쉐보레</option>
+		  <option value="쌍용">쌍용</option>
+		  <option value="제네시스">제네시스</option>
 		</select>
-        <select class="form-select" style="width:200px;margin-left:20px;margin-top:30px;float:left">
+        <select class="form-select" style="width:200px;margin-left:20px;margin-top:30px;float:left" id="mincost">
 		  <option value="" disabled selected>최소금액</option>
-		  <option value="1">100만원</option>
-		  <option value="2">200만원</option>
-		  <option value="3">300만원</option>
-		  <option value="4">400만원</option>
-		  <option value="5">500만원</option>
-		  <option value="6">600만원</option>
-		  <option value="7">700만원</option>
-		  <option value="8">800만원</option>
-		  <option value="9">900만원</option>
-		  <option value="10">1000만원</option>
+		  <option value="100">100만원</option>
+		  <option value="500">500만원</option>
+		  <option value="700">700만원</option>
+		  <option value="1000">1000만원</option>
+		  <option value="1500">1500만원</option>
+		  <option value="2000">2000만원</option>
+		  <option value="2500">2500만원</option>
+		  <option value="3000">3000만원</option>
+		  <option value="3500">3500만원</option>
+		  <option value="4000">4000만원</option>
 		</select>
-        <select class="form-select" style="width:200px;margin-left:20px;margin-top:30px;float:left">
+        <select class="form-select" style="width:200px;margin-left:20px;margin-top:30px;float:left" id="maxcost">
 		  <option value="" disabled selected>최대금액</option>
-		  <option value="1">100만원</option>
-		  <option value="2">200만원</option>
-		  <option value="3">300만원</option>
-		  <option value="4">400만원</option>
-		  <option value="5">500만원</option>
-		  <option value="6">600만원</option>
-		  <option value="7">700만원</option>
-		  <option value="8">800만원</option>
-		  <option value="9">900만원</option>
-		  <option value="10">1000만원</option>
+		  <option value="500">500만원</option>
+		  <option value="700">700만원</option>
+		  <option value="1000">1000만원</option>
+		  <option value="1500">1500만원</option>
+		  <option value="2000">2000만원</option>
+		  <option value="2500">2500만원</option>
+		  <option value="3000">3000만원</option>
+		  <option value="3500">3500만원</option>
+		  <option value="4000">4000만원</option>
+		  <option value="14000">4000만원 이상</option>
 		</select>
-		<button type="button" class="btn btn-outline-danger" style="margin-left: 10px;margin-top: 30px">검색하기</button>
+		<button type="button" class="btn btn-outline-danger" style="margin-left: 10px;margin-top: 30px" id="searched">검색하기</button>
     	</div>
 	</div>
 	
@@ -324,7 +369,7 @@ $(function(){
 	
 	</div>
 	<!-- 페이지 번호 출력 -->
-<div style="width:800px;height:200px; margin:auto;text-align: center; margin-top: 900px;">
+<%-- <div style="width:800px;height:200px; margin:auto;text-align: center; margin-top: 900px;">
 		<% 
 			// 이전
 			if(startPage>1){%>
@@ -351,20 +396,7 @@ $(function(){
 			style="color:red;">다음</a>
 		<%}
 	%>
-	</div> 
-	
-	
-	<script type="text/javascript">
-		/* 장바구니에 추가하기 위한 헨들러 함수 */
-		function addToCart() {
-			if(confirm('해당 상품을 장바구니에 추가하겠습니까?')) {	/* confirm() : 사용자가 선택할 때 이용(확인, 취소) */
-				document.addForm.submit();
-			}
-			else {
-				document.addForm.reset();
-			}
-		}
-	</script>
+	</div>  --%>
 	
 </body>
 </html>

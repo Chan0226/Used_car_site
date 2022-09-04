@@ -35,6 +35,10 @@
 			response.sendRedirect("detailview.jsp");
 			return;
 		}
+/* 		if(userId == null || userId.trim().equals("")) {
+			response.sendRedirect("./loginform.jsp");
+			return;
+		} */
 
 		cartdao.addCart(userId, carId);
 		CarDto dto = cardao.getContent(carId);	

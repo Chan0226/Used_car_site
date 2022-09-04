@@ -17,7 +17,7 @@
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" id="searchingcar">
         </form>
 
 <!--         <div class="text-end">
@@ -31,7 +31,7 @@
 		      	<i class="bi bi-box-arrow-in-right"></i>&nbsp;Login</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" href="#">
+		      <a class="nav-link" href="joinform.jsp">
 		      <i class="bi bi-person-plus-fill"></i>&nbsp;Join</a>
 		    </li>
 		 </ul>
