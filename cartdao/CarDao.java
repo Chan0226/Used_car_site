@@ -17,6 +17,56 @@ import oracle.gss.util.CharConvBuilder.DataTypeParser;
 public class CarDao {
 	DbConnect db = new DbConnect();
 	
+	// 필터링
+	public List<CarDto> getCostCar(String company,int mincost,int maxcost)
+	{
+		List<CarDto> list=new Vector<>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from car where company = ? and cost between ? and ? order by num desc";
+
+		//db연결
+		conn=db.getMysqlConnection();
+
+		//pstmt 생성
+		try {
+			pstmt=conn.prepareStatement(sql);
+			// 바인딩
+			// % 는 ?가 있으면 sql문에서는 작성 X
+			pstmt.setString(1,company);
+			pstmt.setInt(2,mincost);
+			pstmt.setInt(3,maxcost);
+			rs=pstmt.executeQuery();
+
+			while(rs.next())
+			{
+				CarDto dto = new CarDto();
+				dto.setNum(rs.getString("num"));
+				dto.setCarnumber(rs.getString("carnumber"));
+				dto.setCompany(rs.getString("company"));
+				dto.setCarname(rs.getString("carname"));
+				dto.setCost(rs.getInt("cost"));
+				dto.setSort(rs.getString("sort"));
+				dto.setCaryear(rs.getString("caryear"));
+				dto.setDistance(rs.getInt("distance"));
+				dto.setColor(rs.getString("color"));
+				dto.setGas(rs.getString("gas"));
+				dto.setFuel(rs.getString("fuel"));
+				dto.setCc(rs.getString("cc"));
+				dto.setAuto(rs.getString("auto"));
+				dto.setImage(rs.getString("image"));
+				//list에 추가
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
 	public List<CarDto> getSearchCar(String carname)
 	{
 		List<CarDto> list=new Vector<>();
