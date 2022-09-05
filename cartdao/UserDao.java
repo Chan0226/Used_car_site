@@ -14,6 +14,7 @@ import data.dto.cart.CarDto;
 import data.dto.cart.UserDto;
 import db.DbConnect;
 
+
 public class UserDao {
 	DbConnect db = new DbConnect();
 	
@@ -25,6 +26,7 @@ public class UserDao {
 	//UserDAO가 실행되면 자동으로 생성되는 부분
 	//메소드마다 반복되는 코드를 이곳에 넣으면 코드가 간소화된다
 	//로그인 영역
+	
 		public int login(String userID, String userPassword) {
 			conn=db.getMysqlConnection();
 			String sql = "select password from user where id = ?";
@@ -50,7 +52,7 @@ public class UserDao {
 		{
 			Connection conn=null;
 			PreparedStatement pstmt=null;
-			String sql="insert into user values (null,?,?,?,?,?,?,now())";
+			String sql="insert into user values (null,?,?,?,?,?,?,?,now())";
 
 			//db연결
 			conn=db.getMysqlConnection();
@@ -60,9 +62,10 @@ public class UserDao {
 				pstmt.setString(1, dto.getId());
 				pstmt.setString(2, dto.getPassword());
 				pstmt.setString(3, dto.getName());
-				pstmt.setDate(4, dto.getBirthday());
+				pstmt.setString(4, dto.getBirthday());
 				pstmt.setString(5, dto.getSex());
 				pstmt.setString(6, dto.getEmailid()+"@"+dto.getEmailaddr());
+				pstmt.setString(7, "basic");
 
 				//실행
 				pstmt.execute();
@@ -72,14 +75,6 @@ public class UserDao {
 				db.dbClose(conn, pstmt);
 			}
 		}
-
-		
-		
-		
-		
-		
-		
-		
 		
 		public int checkId(String id) {  // 유저가 입력한 값을 매개변수로 한다
 			conn=db.getMysqlConnection();
@@ -102,4 +97,35 @@ public class UserDao {
 			}
 			return idCheck;
 		}
-}
+		
+		
+		public String searchgrade(String id) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String grade = "basic";
+
+			String sql = "select grade from user where id=?";
+
+			conn=db.getMysqlConnection();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					grade=rs.getString(1); //1번열
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			return grade;
+		}
+	}
+		
+		
+		
+		

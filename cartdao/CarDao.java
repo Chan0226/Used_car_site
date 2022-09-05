@@ -141,7 +141,7 @@ public class CarDao {
 				dto.setFuel(rs.getString("fuel"));
 				dto.setCc(rs.getString("cc"));
 				dto.setAuto(rs.getString("auto"));
-				dto.setImage("image");
+				dto.setImage(rs.getString("image"));
 				//list에 추가
 				list.add(dto);
 			}
@@ -153,7 +153,7 @@ public class CarDao {
 		}
 		return list;
 	}
-
+	
 	//num에 해당하는 DTO 반환
 	public CarDto getContent(String num) {
 
@@ -198,7 +198,7 @@ public class CarDao {
 	}
 
 	//insert
-	public void insertBoard(CarDto dto) {
+	public void insertcar(CarDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -221,6 +221,7 @@ public class CarDao {
 			pstmt.setString(10, dto.getFuel());
 			pstmt.setString(11, dto.getCc());
 			pstmt.setString(12, dto.getAuto());
+			pstmt.setString(13, dto.getImage());
 			
 			//실행
 			pstmt.execute();
@@ -363,7 +364,7 @@ public class CarDao {
 	}
 
 	//삭제
-	public void deleteBoard(String num) {
+	public void deleteCar(String num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "delete from car where num=?";
