@@ -275,12 +275,16 @@ $(function(){
 <body>
     <div>
 	<%String loginok = (String)session.getAttribute("loginok");
+	  String grade = (String)session.getAttribute("grade");
 	if(loginok==null)
 	{%>
 		<jsp:include page="header/logoutheader.jsp"></jsp:include>		
-	<%}else{%>
+	<%}else if((loginok=="yes")&&(grade=="basic")){%>
 		<jsp:include page="header/loginheader.jsp"></jsp:include>		
-	<%}%>
+	<%}else{%>
+		<jsp:include page="header/loginheaderadmin.jsp"></jsp:include>		
+	<%}
+	%>
 	</div>
 	
 	
@@ -366,7 +370,8 @@ $(function(){
 	</div>
 	
 	<div class="result">
-	
+	</div>
+	<div class="comment">
 	</div>
 	<!-- 페이지 번호 출력 -->
 <%-- <div style="width:800px;height:200px; margin:auto;text-align: center; margin-top: 900px;">
