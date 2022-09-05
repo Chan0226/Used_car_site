@@ -1,6 +1,5 @@
 package data.dto.cart;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -9,8 +8,9 @@ public class UserDto {
 	private String id; // ¾ÆÀÌµð
 	private String password;
 	private String name;
-	private Date birthday;
+	private String birthday;
 	private String sex;
+	private String grade;
 	private String emailid;
 	private String emailaddr;
 	private Timestamp createDate;
@@ -51,10 +51,10 @@ public class UserDto {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public String getEmailid() {
@@ -69,5 +69,12 @@ public class UserDto {
 	public void setEmailaddr(String emailaddr) {
 		this.emailaddr = emailaddr;
 	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	
 	
 }

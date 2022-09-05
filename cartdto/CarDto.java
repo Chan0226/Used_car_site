@@ -18,6 +18,7 @@ public class CarDto {
 	private String cc;
 	private String auto;
 	private String image;
+	
 	public String getNum() {
 		return num;
 	}
@@ -102,5 +103,5 @@ public class CarDto {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
+	
 }
